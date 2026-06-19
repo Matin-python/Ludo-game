@@ -2,10 +2,10 @@
 LUDO GAME SIMULATION
 MohammadReza Bakhshandeh 2024
 RULE:
-    A player will get spawned only if he/she gets 6 in the dice. 
-    After that, if the player gets the number n in the dice, he/she moves forward n boxes.
-    He/she can't put more than 1 piece in start place
-    start place is safe and can't hit by other piece
+    A player spawns only by rolling a 6.
+    After spawning, the player moves forward n spaces for each roll of n.
+    Only 1 piece is allowed in the starting position.
+    The starting position is safe and cannot be captured by other pieces.
 
 """
 
@@ -15,9 +15,9 @@ import itertools
 import time
 
 end_spaces = [41, 42, 43, 44]  # End spaces for the pieces
-safe_spaces = [0, 1, 41, 42, 43, 44]  # you can't hit the piece in there spaces
+safe_spaces = [0, 1, 41, 42, 43, 44]  # You can't hit the piece in these spaces
 class Dice:
-    #Since all the players will use the same dice to play, there need not be more than one instances of dice
+    #Since all the players will use the same dice to play, there need not be more than one instance of dice
     #So, it is better if Dice is made static.
     @staticmethod
     def roll():
@@ -38,11 +38,11 @@ class Players:
         self.real_position = [0, 0, 0, 0]
         self.flag_not_move = 1
         
-        # The player is not born (meaning he/she will remain at position 0 till dice shows 6)
+        # The player is not born (meaning he/she will remain at position 0 till the dice shows 6)
         self.born = [False, False, False, False]
     
     def has_won(self):
-        # All pieces arrived at home every color must full 41 42 43 44 of there place
+        # All pieces arrived at home; every color must fill 41 42 43 44 of their place
         if all(piece in end_spaces for piece in self.position):
             print(self.name, ' win.')
             return True
@@ -95,7 +95,7 @@ class Players:
                     break
                 
             if self.flag_not_move == 0 or dicevalue == 6:
-                print ('You can\'t move this piece choose another piece.')
+                print ('You can\'t move this piece; choose another piece.')
                 self.update_position(dicevalue)
             else:    
                 print ('You can\'t move any piece. ')   
@@ -113,33 +113,33 @@ class Players:
                 self.position[self.which_move] = new_pos
 
         match self.color:
-            #Each player piece position set base on Red 
+            #Each player piece position set based on Red 
             case 'R':
                 print(self.name, "'s positions are based on RED position on the board.")
                 for i in range (len(self.position)):
                     self.real_position[i] = self.position[i]
-                    print(self.name, "POSITION ==>", self.real_position[i])
+                    print(self.name, f"POSITION {i+1} ==>", self.real_position[i])
             case 'G':
                 print(self.name, "'s positions are based on RED position on the board.")
                 for i in range (len(self.position)):
                     self.real_position[i] = self.position[i] + 10
                     if self.real_position[i] > 40:
                         self.real_position[i] = self.real_position[i] - 40
-                    print(self.name, "POSITION ==>", self.real_position[i])
+                    print(self.name, f"POSITION {i+1} ==>", self.real_position[i])
             case 'B':
                 print(self.name, "'s positions are based on RED position on the board.")
                 for i in range (len(self.position)):
                     self.real_position[i] = self.position[i] + 20
                     if self.real_position[i] > 40:
                         self.real_position[i] = self.real_position[i] - 40
-                    print(self.name, "POSITION ==>", self.real_position[i])
+                    print(self.name, f"POSITION {i+1}==>", self.real_position[i])
             case 'Y':
                 print(self.name, "'s positions are based on RED position on the board.")
                 for i in range (len(self.position)):
                     self.real_position[i] = self.position[i] + 30
                     if self.real_position[i] > 40:
                         self.real_position[i] = self.real_position[i] - 40
-                    print(self.name, "POSITION ==>", self.real_position[i])
+                    print(self.name, f"POSITION {i+1} ==>", self.real_position[i])
             case default:
                 print ('Inputs are not what we expected')
             
@@ -174,9 +174,10 @@ class Players:
         
 
     def print_position(self):
+        print()
         print(self.name, "'s positions are based on his own position on the board.")
         for i in range (0,4):
-            print(self.name, "POSITION ==>", str(self.position[i]), '\tstatus =', str(self.born[i]))
+            print(self.name, f"POSITION {i+1} ==>", str(self.position[i]), '\tstatus =', str(self.born[i]))
     
     def play(self):
         dicevalue = Dice.roll()
@@ -205,8 +206,6 @@ class Players:
             if player != self:  # Compare with other players only
                 for i in range (4):
                     for j in range (4):
-                        print(i)
-                        print (self.real_position[i], player.real_position[j])
                         if self.real_position[i] == player.real_position[j]:
                             if self.born[i] == True:
                                 # If the piece is on a safe space, or the player hasn't spawned yet,
@@ -221,6 +220,7 @@ class Players:
                                     player.position[j] = 0
                                     player.born[j] = False
                                     print(f"{player.name}'s piece at position {player.real_position[j]} is now eliminated.")
+                                    player.real_position[j] = 0
                             else:
                                 pass
                             
