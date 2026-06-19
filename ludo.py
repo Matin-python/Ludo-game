@@ -2,10 +2,11 @@
 LUDO GAME SIMULATION
 MohammadReza Bakhshandeh 2024
 RULE:
-    A player spawns only by rolling a 6.
-    After spawning, the player moves forward n spaces for each roll of n.
-    Only 1 piece is allowed in the starting position.
-    The starting position is safe and cannot be captured by other pieces.
+    A player will get spawned only if he/she gets 6 in the dice. 
+    After that, if the player gets the number n in the dice, he/she moves forward n boxes.
+    He/she can't put more than 1 piece in start place
+    start place is safe and can't hit by other piece
+
 """
 
 
@@ -200,21 +201,26 @@ class Players:
     def hit_piece(self):
         for player in players:
             if player != self:  # Compare with other players only
-                for j in range(4):
-                    print(i)
-                    if self.real_position[i] == player.real_position[j]:
-                        if self.born[i] == True:
-                            # Check if the hit piece is in a safe zone
-                            if self.real_position[i] in safe_spaces or player.born[j] == False:
-                                pass
+                for i in range (4):
+                    for j in range (4):
+                        print(i)
+                        print (self.real_position[i], player.real_position[j])
+                        if self.real_position[i] == player.real_position[j]:
+                            if self.born[i] == True:
+                                # If the piece is on a safe space, or the player hasn't spawned yet,
+                                # or the player's current position is a safe space...
+                                if self.real_position[i] in safe_spaces or \
+                                    not player.born[j] or \
+                                    player.position[j] in safe_spaces:
+                                    pass
+                                else:
+                                    # Change the position of the hit piece to 0 and set its alive status to False
+                                    print(f"Your piece at position {self.real_position[i]} hit {player.name}'s piece.")
+                                    player.position[j] = 0
+                                    player.born[j] = False
+                                    print(f"{player.name}'s piece at position {player.real_position[j]} is now eliminated.")
                             else:
-                                # Change the position of the hit piece to 0 and set its alive status to False
-                                print(f"Your piece at position {self.real_position[i]} hit {player.name}'s piece.")
-                                player.position[j] = 0
-                                player.born[j] = False
-                                print(f"{player.name}'s piece at position {player.real_position[j]} is now eliminated.")
-                        else:
-                            pass
+                                pass
                             
 class Game:
     def __init__(self, players):
