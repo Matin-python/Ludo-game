@@ -45,6 +45,8 @@ class Players:
         # All pieces arrived at home every color must full 41 42 43 44 of there place
         if all(piece in end_spaces for piece in self.position):
             print(self.name, ' win.')
+            return True
+        return False
     
     def update_position(self, dicevalue):
         self.double_check(dicevalue)
