@@ -2,11 +2,10 @@
 LUDO GAME SIMULATION
 MohammadReza Bakhshandeh 2024
 RULE:
-    A player will get spawned only if he/she gets 6 in the dice. 
-    After that, if the player gets the number n in the dice, he/she moves forward n boxes.
-    He/she can't put more than 1 piece in start place
-    start place is safe and can't hit by other piece
-
+    A player spawns only by rolling a 6.
+    After spawning, the player moves forward n spaces for each roll of n.
+    Only 1 piece is allowed in the starting position.
+    The starting position is safe and cannot be captured by other pieces.
 """
 
 
