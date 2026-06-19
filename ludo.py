@@ -111,24 +111,28 @@ class Players:
                 self.position[self.which_move] = new_pos
 
         match self.color:
-            #Each player piece position set base on red 
+            #Each player piece position set base on Red 
             case 'R':
+                print(self.name, "'s positions are based on RED position on the board.")
                 for i in range (len(self.position)):
                     self.real_position[i] = self.position[i]
                     print(self.name, "POSITION ==>", self.real_position[i])
             case 'G':
+                print(self.name, "'s positions are based on RED position on the board.")
                 for i in range (len(self.position)):
                     self.real_position[i] = self.position[i] + 10
                     if self.real_position[i] > 40:
                         self.real_position[i] = self.real_position[i] - 40
                     print(self.name, "POSITION ==>", self.real_position[i])
             case 'B':
+                print(self.name, "'s positions are based on RED position on the board.")
                 for i in range (len(self.position)):
                     self.real_position[i] = self.position[i] + 20
                     if self.real_position[i] > 40:
                         self.real_position[i] = self.real_position[i] - 40
                     print(self.name, "POSITION ==>", self.real_position[i])
             case 'Y':
+                print(self.name, "'s positions are based on RED position on the board.")
                 for i in range (len(self.position)):
                     self.real_position[i] = self.position[i] + 30
                     if self.real_position[i] > 40:
@@ -168,6 +172,7 @@ class Players:
         
 
     def print_position(self):
+        print(self.name, "'s positions are based on his own position on the board.")
         for i in range (0,4):
             print(self.name, "POSITION ==>", str(self.position[i]), '\tstatus =', str(self.born[i]))
     
@@ -197,6 +202,7 @@ class Players:
         for player in players:
             if player != self:  # Compare with other players only
                 for j in range(4):
+                    print(i)
                     if self.real_position[i] == player.real_position[j]:
                         if self.born[i] == True:
                             # Check if the hit piece is in a safe zone
